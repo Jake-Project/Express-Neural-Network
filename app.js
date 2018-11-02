@@ -8,4 +8,8 @@ app.get('/', (req, res) => res.send('Hello World!'))
 const perceptronTest = require('./routes/perceptronTest')
 app.use('/api/perceptronTest', require('./routes/perceptronTest'))
 
+//Importing network_neuron.js
+const networkNeuron = require('./routes/network')
+app.use('/api/network', require('./routes/network'))
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
