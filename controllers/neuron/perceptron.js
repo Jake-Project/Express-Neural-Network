@@ -4,7 +4,7 @@
 const activationFunction = require('./activation_functions.js')
 
 //Learning rate is the rate at which the perceptron can learn
-var learningRate = 0.1
+var learningRate = 0.01
 
 //If perceptron has beeen trained to fix the problem
 var perceptronTrained = false
@@ -30,17 +30,21 @@ var correctOutputs = [0, 0, 0, 1]
 module.exports = {
 
   //Function that does all of the training for the perceptron
-  trainPerceptron: function(){
+  trainPerceptron: function(callback){
     //Calculate the initial input weights
     generateInitialInputWeights()
-
+    var epochCounter = 0
     while(perceptronTrained == false){
+
+      epochCounter += 1
 
       var calculatedBias = biasCalculation()
 
       //This represents a whole entire epoch for the logical AND calculation
       for(var i = 0; i < correctOutputs.length; i++){
-        var perceptronCalculatedValue = (andMathA[i] * inputAWeight) + (andMathB * inputBWeight) + calculatedBias
+        var perceptronCalculatedValue = (andMathA[i] * inputAWeight) + (andMathB[i] * inputBWeight) + calculatedBias
+
+        console.log("perceptron calculated value = (" + andMathA[i] + " * " + inputAWeight + ") + (" + andMathB[i] + " * " + inputBWeight + ") + " + calculatedBias + " = " + perceptronCalculatedValue)
 
         //Calculate the output with the step function which is imported from activation_functions.js
         actualOutputs[i] = activationFunction.stepFunction(perceptronCalculatedValue)
@@ -49,6 +53,8 @@ module.exports = {
       //Compare the outputs and do backwards propogation
       compareOutputs(correctOutputs.length)
     }
+    perceptronTrained = false
+    callback("Amount of Epochs taken to calculate [0, 0, 0, 1] = " + epochCounter)
 
   }
 
@@ -88,6 +94,7 @@ function compareOutputs(epochSize){
   }
   if(amountCorrect == 4){
     perceptronTrained = true
+    console.log("The perceptron has been trained")
   }
 }
 

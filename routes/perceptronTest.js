@@ -9,7 +9,7 @@ router.get('/perceptronTest', function(req, res){
 
   perceptron.trainPerceptron(function(callback){
     console.log("perceptron test got callback from the controller")
-    res.send(callback)
+    res.sendStatus(callback)
   })
 })
 
