@@ -26,7 +26,7 @@ A  simple Express Application which is capable of running different tests for me
 -- !!IMPORTANT!! In my neural network Bias Functions will be represented by a neuron from the pervious layer which has no previous connections.
 -- Do not have incoming connections, only outgoing weights and values.
 
-![Image showing network](https://github.com/Jake-Project/Express-Neural-Network)
+![Image showing network](https://github.com/Jake-Project/Express-Neural-Network/tree/master/Diagrams/Images/Neural_Network.png)
 
 - Activation Function
 --
