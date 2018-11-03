@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 
-var perceptron = require('../controllers/neuron/perceptron.js')
+var perceptron = require('../controllers/neuronNetwork/perceptron.js')
 
 router.get('/perceptronTest', function(req, res){
   console.log("Called /routes/perceptronTest/perceptronTest")
