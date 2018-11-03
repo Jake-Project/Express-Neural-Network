@@ -27,16 +27,23 @@ function Neuron(id, inputWeights, inputIds, calculatedOutput, outputIds, activat
 var firstHiddenLayer = []
 var secondHiddenLayer = []
 
+//Inputs into the network
 var input1 = [0,1,0,1]
 var input2 = [0,0,1,1]
+
+//TODO BACKWARDS propogation
+//TODO Activation function defined inside of the object is not currently used. INstead they are all step (binary) functions
+
+var expectedOutput = [0, 0, 0, 1]
+
+var actualOutput = [0, 0, 0, 0]
 
 //For the 2 layers. Layer1 = biasOne, layer2 = biasTwo
 var biasOne = -1
 var biasTwo = -1
 
-var outputOne = 0
-
-
+//The output of the neural network
+var output = new Neuron(output,  [Math.random(), Math.random(), Math.random(), Math.random()], ["2.1", "2.2", "2.3", "2.4"], null, null, activationFunction.stepFunction())
 
 
 module.exports = {
@@ -68,27 +75,65 @@ module.exports = {
 function calculateNetwork(){
   //Calculate for everything in the first hidden layer
   console.log("calculating the network")
-  for(var i = 0; i < firstHiddenLayer.length; i++){
-    console.log(firstHiddenLayer[i].inputWeights.length)
-    console.log(firstHiddenLayer[i].inputIds)
 
-    //Calculate for all of the inputs for the first hidden layer
-    for(var index = 0; index < firstHiddenLayer[i].inputWeights.length; index++){
-      //Get weight for current input
-      var currentWeight = firstHiddenLayer[i].inputWeights[index]
-      console.log("Weight Is: " + currentWeight)
-      //Get ID for current input
-      var currentInputId = firstHiddenLayer[i].inputIds[index]
-      //Get Value From ID For current input
-      var currentInputIdValue = eval(currentInputId)
-      console.log("Value is " + currentInputIdValue)
-      
-      console.log("The current weight which we are looking at is: " + currentWeight + ". The inputID associated with this weight is: " + currentInputId)
+  //Do the calculation for every set in the epoch
+  for(var n = 0; n < input1.length; n++){
+
+    console.log("Calculating the first layer")
+    for(var p = 0; p < firstHiddenLayer.length; p++){
+
+      //Get the values to plug into the Neurons in layer 1
+      var inputOneValue = input1[n]
+      var inputTwoValue = input2[n]
+
+      var inputOneWeight = firstHiddenLayer[p].inputWeights[0]
+      var inputTwoWeight = firstHiddenLayer[p].inputWeights[1]
+
+      var inputOneCalc = calculateWeightsAndValues(inputOneValue, inputOneWeight)
+      var inputTwoCalc = calculateWeightsAndValues(inputTwoValue, inputTwoWeight)
+      var biasCalc = calculateWeightsAndValues(biasOne, Math.random()) //TODO MATH.RANDOM IS DEFINATELY NOT THE CORERCT THING FOR HERE. NEED TO MAKE ANOTHER NEURON FOR IT
+
+      var neuronCalculatedValue =  inputOneCalc + inputTwoCalc + biasCalc
+
+      console.log("HAHAHHAHHAHHAHAA: " + neuronCalculatedValue)
+      firstHiddenLayer[p].calculatedOutput = activationFunction.stepFunction(neuronCalculatedValue)
     }
+
+    console.log("Calculating the second layer")
+    for(var i = 0; i < secondHiddenLayer.length; i++){
+      console.log(secondHiddenLayer[i].inputWeights.length)
+      console.log(secondHiddenLayer[i].inputIds)
+
+      //TODO Fix this. Essentially the addition of all of the inputs
+      var finalLayerTwoCalculationBeforeActivationFunction = 0
+
+      //Calculate for all of the inputs for the first hidden layer
+      for(var index = 0; index < secondHiddenLayer[i].inputWeights.length; index++){
+        //Get weight for current input
+        var currentWeight = secondHiddenLayer[i].inputWeights[index]
+
+        //Get ID for current input
+        var currentInputId = secondHiddenLayer[i].inputIds[index]
+        //Get Value From ID For current input
+        //var currentInputIdValue = eval(currentInputId)
+
+        var currentInputIdValue = firstHiddenLayer[index].calculatedOutput
+        console.log("----------------------------------")
+        console.log("Current Input Id = " + currentInputId + "\nThe Weight For This Input Is: " + currentWeight + "\nThe Value For This Input Is: " + currentInputIdValue)
+        console.log("----------------------------------")
+
+        finalLayerTwoCalculationBeforeActivationFunction + calculateWeightsAndValues(currentInputIdValue, currentWeight)
+
+      }
+      finalLayerTwoCalculationBeforeActivationFunction + calculateWeightsAndValues(biasOne, Math.random()) //TODO MATH.RANDOM IS DEFINATELY NOT THE CORERCT THING FOR HERE. NEED TO MAKE ANOTHER NEURON FOR IT
+      secondHiddenLayer[i].calculatedOutput =  activationFunction.stepFunction(finalLayerTwoCalculationBeforeActivationFunction)
+    }
+
+    console.log("Calculating the output")
   }
 }
 
 //Function to calculate the bias value and weight
-function calculateBias(){
-
+function calculateWeightsAndValues(value, weight){
+  return(value * weight)
 }
