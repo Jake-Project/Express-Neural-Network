@@ -72,6 +72,10 @@ module.exports = {
   }
 }
 
+
+//TODO The objects representing neurons inside of the layers could contain an array of the previous layer (or pointers to them) instead of just an id
+
+
 //Function to calculate all of the processes in the network
 function calculateNetwork(){
   //Calculate for everything in the first hidden layer
