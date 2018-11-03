@@ -6,10 +6,10 @@ module.exports = {
   stepFunction: function(neuronValue){
 
     if(neuronValue > 0){
-      console.log("1")
+      console.log("Final Value: 1")
       return(1)
     } else {
-      console.log("0")
+      console.log("Final Value: 0")
       return(0)
     }
 
