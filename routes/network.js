@@ -17,7 +17,7 @@ router.get('/neuron/test', function(req, res){
 
 router.get('/test', function(req, res){
   console.log("Called /routes/network/test")
-  deleteMe.test(function(callback){
+  deleteMe.train(function(callback){
     res.sendStatus(JSON.stringify(callback))
   })
 })
