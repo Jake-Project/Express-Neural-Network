@@ -8,9 +8,20 @@ Any parts of the Readme which have not been filled in do not have any functional
 1. Download the Express Application from GitHub.
 2. Find the parent folder using Terminal and type node app.js
 3. You will get a message stating that the Server is running on port 3000.
-4. Go to a browser of your choice and type -> http://localhost:3000/api/perceptronTest/perceptronTest
-5. You shall be greeted by the amount of Epochs that it took for the Perceptron to be trained for AND.
-6. The Learning Rate can be changed by editing the 'learningRate' variable in perceptron.js
+
+## How to train a Perceptron to calculate AND
+1. Go to a browser of your choice and type -> http://localhost:3000/api/perceptronTest/perceptronTest
+2. You shall be greeted by the amount of Epochs that it took for the Perceptron to be trained for AND.
+3. The Learning Rate can be changed by editing the 'learningRate' variable in perceptron.js
+
+## How to build a network
+1. Go to a browser of your choice and type -> http://localhost:3000/api/network/test
+2. You shall be given a Multidimensional array which contains neurons, their associated weights and values
+
+- This works by calling the network.js Route File which in turn calls the run_network.js controller. This file calls the controller 'generate_network.js' which makes the network by calling the neuron.js controller and creating the neuron objects. The generate network file stacks the neurons in layers and then adds the weights that it needs to make each layer mesh together.
+
+- Eventually this will allow for the network to be built and trained. After training I will allow for the network to be tested and saved as some form of output file 
+
 
 ## Warning!!!
 If you wish to run the application but access it from another device and you are a Windows User ->

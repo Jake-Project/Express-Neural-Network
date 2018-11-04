@@ -12,6 +12,7 @@ module.exports = {
   //TODO Generate an array containing the input's, hidden layers and outputs
   //TODO Currently, only one weight is created for each neuron. This is incorrect and the weights that are created should be directly affected by how many neurons are in the next layer.
   //TODO Currently the bias function is not included as a neuron but this needs to be incorporated somehow
+  //TODO Activation function is not currently included
   generate: function(){
     console.log("called generate_network.generate")
 
@@ -89,7 +90,14 @@ function generateOutputWeights(neuralNetwork){
       }
     }
 
-    console.log("The amount of output weights for layer " + layer + " Is Equal to: " + outputWeights.length)
+    //Output to say how many output weights there are for each neuron in the layers
+    if(layer == 0){
+      console.log("The amount of output weights for the input layer Is Equal to: " + outputWeights.length)
+    } else if (layer == neuralNetwork.length-1){
+      console.log("The amount of output weights for the output layer Is Equal to: " + outputWeights.length)
+    } else {
+      console.log("The amount of output weights for layer " + layer + " Is Equal to: " + outputWeights.length)
+    }
   }
   return(neuralNetwork)
 }
